@@ -1,0 +1,15 @@
+{
+  "rust-client.autoStartRls": false,
+  "rust-analyzer.checkOnSave.command": "clippy",
+  "rust-analyzer.checkOnSave.extraArgs": ["--tests"],
+
+  "[rust]": {
+    "editor.rulers": [100],
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false,
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.defaultFormatter": "matklad.rust-analyzer"
+  }
+}
