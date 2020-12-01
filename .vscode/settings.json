@@ -1,4 +1,7 @@
 {
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 500,
+
   "rust-client.autoStartRls": false,
   "rust-analyzer.checkOnSave.command": "clippy",
   "rust-analyzer.checkOnSave.extraArgs": ["--tests"],
