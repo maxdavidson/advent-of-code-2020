@@ -1,7 +1,4 @@
 {
-  "files.autoSave": "afterDelay",
-  "files.autoSaveDelay": 500,
-
   "rust-client.autoStartRls": false,
   "rust-analyzer.checkOnSave.command": "clippy",
   "rust-analyzer.checkOnSave.extraArgs": ["--tests"],
@@ -10,9 +7,8 @@
     "editor.rulers": [100],
     "editor.tabSize": 4,
     "editor.insertSpaces": true,
-    "editor.detectIndentation": false,
     "editor.formatOnSave": true,
-    "editor.formatOnPaste": true,
+    "editor.detectIndentation": false,
     "editor.defaultFormatter": "matklad.rust-analyzer"
   }
 }
