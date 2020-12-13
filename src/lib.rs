@@ -1,3 +1,5 @@
+#![allow(unused_variables)]
+
 pub mod day00;
 pub mod day01;
 pub mod day02;
@@ -11,3 +13,4 @@ pub mod day09;
 pub mod day10;
 pub mod day11;
 pub mod day12;
+pub mod day13;
