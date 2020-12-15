@@ -1,0 +1,4 @@
+{
+  "image": "mcr.microsoft.com/vscode/devcontainers/rust",
+  "extensions": ["esbenp.prettier-vscode", "dbaeumer.vscode-eslint"]
+}

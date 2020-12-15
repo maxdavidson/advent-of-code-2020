@@ -1,0 +1,10 @@
+{
+  "jest.pathToJest": "npm run test --",
+  "[typescript]": {
+    "editor.rulers": [100],
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.formatOnSave": true,
+    "editor.detectIndentation": false
+  }
+}

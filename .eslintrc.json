@@ -1,0 +1,28 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:node/recommended",
+    "plugin:node/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2020
+  },
+  "overrides": [
+    {
+      "files": ["**/*.{test,spec}.js", "**/{__tests__}/*"],
+      "env": {
+        "jest": true
+      }
+    }
+  ],
+  "rules": {
+    "node/file-extension-in-import": ["error", "always"],
+    "node/no-missing-import": [
+      "error",
+      {
+        "allowModules": ["fs/promises"]
+      }
+    ]
+  }
+}

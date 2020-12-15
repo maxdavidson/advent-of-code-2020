@@ -1,0 +1,15 @@
+export * as day01 from './day01/index';
+export * as day02 from './day02/index';
+export * as day03 from './day03/index';
+export * as day04 from './day04/index';
+export * as day05 from './day05/index';
+export * as day06 from './day06/index';
+export * as day07 from './day07/index';
+export * as day08 from './day08/index';
+export * as day09 from './day09/index';
+export * as day10 from './day10/index';
+export * as day11 from './day11/index';
+export * as day12 from './day12/index';
+export * as day13 from './day13/index';
+export * as day14 from './day14/index';
+export * as day15 from './day14/index';
