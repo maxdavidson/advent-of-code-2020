@@ -9,11 +9,11 @@ const [INPUT, TEST_INPUT_0, TEST_INPUT_1] = await Promise.all([
 ]);
 
 test('part1', () => {
-  expect(part1(TEST_INPUT_0)).toBe(165n);
-  expect(part1(INPUT)).toBe(9_615_006_043_476n);
+  expect(part1(TEST_INPUT_0)).toBe(165);
+  expect(part1(INPUT)).toBe(9_615_006_043_476);
 });
 
 test('part2', () => {
-  expect(part2(TEST_INPUT_1)).toBe(208n);
-  expect(part2(INPUT)).toBe(4_275_496_544_925n);
+  expect(part2(TEST_INPUT_1)).toBe(208);
+  expect(part2(INPUT)).toBe(4_275_496_544_925);
 });

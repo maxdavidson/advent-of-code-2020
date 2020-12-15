@@ -12,7 +12,7 @@ function* lines(input) {
 const maskRegex = /mask = (?<mask>[01X]{36})$/;
 const memRegex = /mem\[(?<address>\d+)\] = (?<value>\d+)$/;
 
-/** @typedef {{ mask: string, memoryInit: [bigint, bigint][] }} Program */
+/** @typedef {{ mask: string, memoryInit: [number, number][] }} Program */
 
 /**
  * @param {string} input
@@ -38,7 +38,7 @@ function* programs(input) {
       match.groups !== undefined
     ) {
       const { address, value } = match.groups;
-      memoryInit.push([BigInt(address), BigInt(value)]);
+      memoryInit.push([Number(address), Number(value)]);
     }
 
     yield { mask, memoryInit };
@@ -47,34 +47,32 @@ function* programs(input) {
 
 /**
  * @param {string} mask
- * @param {bigint} value
+ * @returns {(value: number) => number}
  */
-function applyMask(mask, value) {
-  for (let i = 0; i < mask.length; i += 1) {
-    if (mask[i] === '1') {
-      value |= 1n << BigInt(mask.length - i - 1);
-    } else if (mask[i] === '0') {
-      value &= ~(1n << BigInt(mask.length - i - 1));
-    }
-  }
-  return value;
+function createMaskApplier(mask) {
+  const maskOn = BigInt(`0b${Array.from(mask, c => (c === '1' ? c : '0')).join('')}`);
+  const maskOff = BigInt(`0b${Array.from(mask, c => (c === '0' ? c : '1')).join('')}`);
+  return function applyMask(value) {
+    return Number((BigInt(value) | maskOn) & maskOff);
+  };
 }
 
 /**
  * @param {string} input
  */
 export function part1(input) {
-  /** @type {Map<bigint, bigint>} */
+  /** @type {Map<number, number>} */
   const memory = new Map();
 
   for (const { mask, memoryInit } of programs(input)) {
+    const applyMask = createMaskApplier(mask);
     for (const [address, value] of memoryInit) {
-      const maskedValue = applyMask(mask, value);
+      const maskedValue = applyMask(value);
       memory.set(address, maskedValue);
     }
   }
 
-  let sum = 0n;
+  let sum = 0;
   for (const value of memory.values()) {
     sum += value;
   }
@@ -103,19 +101,20 @@ function* masks(mask, index = 0) {
  * @param {string} input
  */
 export function part2(input) {
-  /** @type {Map<bigint, bigint>} */
+  /** @type {Map<number, number>} */
   const memory = new Map();
 
   for (const { mask, memoryInit } of programs(input)) {
     for (const newMask of masks(mask)) {
+      const applyMask = createMaskApplier(newMask);
       for (const [address, value] of memoryInit) {
-        const maskedAddress = applyMask(newMask, address);
+        const maskedAddress = applyMask(address);
         memory.set(maskedAddress, value);
       }
     }
   }
 
-  let sum = 0n;
+  let sum = 0;
   for (const value of memory.values()) {
     sum += value;
   }
