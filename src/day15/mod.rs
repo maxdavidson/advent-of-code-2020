@@ -38,6 +38,7 @@ pub fn part2(input: &str) -> usize {
 #[cfg(test)]
 mod tests {
     use super::*;
+
     #[test]
     fn part1_works() {
         assert_eq!(part1("0,3,6"), 436);
