@@ -12,5 +12,6 @@ export * as day11 from './day11/index';
 export * as day12 from './day12/index';
 export * as day13 from './day13/index';
 export * as day14 from './day14/index';
-export * as day15 from './day14/index';
-export * as day16 from './day14/index';
+export * as day15 from './day15/index';
+export * as day16 from './day16/index';
+export * as day17 from './day17/index';
