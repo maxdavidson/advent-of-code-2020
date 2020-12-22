@@ -38,5 +38,3 @@ jobs:
         with:
           command: test
           args: --release -- -Z unstable-options --report-time
-        env:
-          RUSTFLAGS: -C target-cpu=native
