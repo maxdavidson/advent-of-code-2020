@@ -2,39 +2,22 @@ on: [push]
 
 name: CI
 
+env:
+  RUSTFLAGS: --codegen target-cpu=native
+
 jobs:
   test:
-    name: Test (${{ matrix.toolchain }})
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        toolchain: [stable, beta, nightly]
-
+    name: Test
+    runs-on: ubuntu-22.04
     steps:
-      - name: Checkout sources
+      - name: Check out sources
         uses: actions/checkout@v2
 
-      - name: Install Rust toolchain
-        id: toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: ${{ matrix.toolchain }}
-          profile: minimal
-          override: true
+      - name: Get Rust config
+        run: echo RUST_CFG=$(rustc --print cfg ${{ env.RUSTFLAGS }}) >> $GITHUB_ENV
 
-      - name: Set up caches
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.cargo/bin
-            ~/.cargo/git/db
-            ~/.cargo/registry/index
-            ~/.cargo/registry/cache
-            target
-          key: cargo-v1-${{ runner.os }}-${{ steps.toolchain.outputs.rustc_hash }}-${{ hashFiles('**/Cargo.lock') }}
+      - name: Set up Rust cache
+        uses: Swatinem/rust-cache@v2
 
       - name: Run tests
-        uses: actions-rs/cargo@v1
-        with:
-          command: test
-          args: --release -- -Z unstable-options --report-time
+        run: cargo test --color=always --release -- --color=always -Z unstable-options --report-time

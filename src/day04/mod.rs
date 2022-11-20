@@ -14,7 +14,9 @@ fn parse_passports(input: &str) -> impl Iterator<Item = HashMap<&str, &str>> + '
     })
 }
 
-static VALID_FIELDS: [&str; 7] = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"];
+const VALID_FIELDS: [&str; 7] = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"];
+
+const VALID_EYE_COLORS: [&str; 7] = ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"];
 
 pub fn part1(input: &str) -> usize {
     parse_passports(input)
@@ -29,31 +31,31 @@ pub fn part1(input: &str) -> usize {
 pub fn part2(input: &str) -> usize {
     parse_passports(input)
         .filter(|passport| {
-            VALID_FIELDS.iter().all(|field| {
-                if let Some(value) = passport.get(*field) {
-                    match *field {
+            VALID_FIELDS.into_iter().all(|field| {
+                if let Some(value) = passport.get(field) {
+                    match field {
                         "byr" => {
-                            let num_value: u16 = value.parse().unwrap();
-                            1920 <= num_value && num_value <= 2002
+                            let num_value = value.parse().unwrap();
+                            (1920..=2002).contains(&num_value)
                         }
                         "iyr" => {
-                            let num_value: u16 = value.parse().unwrap();
-                            2010 <= num_value && num_value <= 2020
+                            let num_value = value.parse().unwrap();
+                            (2010..=2020).contains(&num_value)
                         }
                         "eyr" => {
-                            let num_value: u16 = value.parse().unwrap();
-                            2020 <= num_value && num_value <= 2030
+                            let num_value = value.parse().unwrap();
+                            (2020..=2030).contains(&num_value)
                         }
                         "hgt" => {
                             lazy_static! {
                                 static ref RE: Regex = Regex::new(r"^(\d+)(cm|in)$").unwrap();
                             }
                             if let Some(cap) = RE.captures(value) {
-                                let height: u16 = cap[1].parse().unwrap();
+                                let height = cap[1].parse().unwrap();
                                 let unit = &cap[2];
                                 match unit {
-                                    "cm" => 150 <= height && height <= 193,
-                                    "in" => 59 <= height && height <= 76,
+                                    "cm" => (150..=193).contains(&height),
+                                    "in" => (59..=76).contains(&height),
                                     _ => panic!("Invalid unit: {}", unit),
                                 }
                             } else {
@@ -66,18 +68,14 @@ pub fn part2(input: &str) -> usize {
                             }
                             RE.is_match(value)
                         }
-                        "ecl" => {
-                            static VALID_EYE_COLORS: [&str; 7] =
-                                ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"];
-                            VALID_EYE_COLORS.iter().any(|color| color == value)
-                        }
+                        "ecl" => VALID_EYE_COLORS.contains(value),
                         "pid" => {
                             lazy_static! {
                                 static ref RE: Regex = Regex::new(r"^\d{9}$").unwrap();
                             }
                             RE.is_match(value)
                         }
-                        _ => panic!("Invalid field: {}", *field),
+                        _ => panic!("Invalid field: {field}"),
                     }
                 } else {
                     false

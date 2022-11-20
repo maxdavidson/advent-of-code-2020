@@ -34,10 +34,10 @@ impl Direction {
 
 fn parse_line(mut input: &str) -> impl Iterator<Item = Direction> + '_ {
     std::iter::from_fn(move || {
-        if let Some(remaining_input) = input.strip_prefix("e") {
+        if let Some(remaining_input) = input.strip_prefix('e') {
             input = remaining_input;
             Some(Direction::East)
-        } else if let Some(remaining_input) = input.strip_prefix("w") {
+        } else if let Some(remaining_input) = input.strip_prefix('w') {
             input = remaining_input;
             Some(Direction::West)
         } else if let Some(remaining_input) = input.strip_prefix("se") {

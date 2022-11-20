@@ -9,7 +9,7 @@ struct Entry<'a> {
     password: &'a str,
 }
 
-fn parse_entries<'a>(input: &'a str) -> impl Iterator<Item = Entry<'a>> + 'a {
+fn parse_entries(input: &str) -> impl Iterator<Item = Entry<'_>> + '_ {
     lazy_static! {
         static ref RE: Regex =
             Regex::new(r"(?P<a>\d+)-(?P<b>\d+) (?P<letter>\w): (?P<password>\w+)").unwrap();

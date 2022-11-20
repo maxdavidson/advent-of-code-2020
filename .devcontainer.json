@@ -1,8 +1,0 @@
-{
-  "image": "mcr.microsoft.com/vscode/devcontainers/rust",
-  "extensions": [
-    "matklad.rust-analyzer",
-    "bungcip.better-toml",
-    "vadimcn.vscode-lldb"
-  ]
-}
